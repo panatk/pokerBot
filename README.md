@@ -4,33 +4,17 @@ Building a poker bot to play NLHE online
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+- Python 3.xx with pipenv (optional but easier) installed 
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+- after cloning, use `pipenv sync` to install packages from pipfile
+- `pipenv shell` then python to use venv with packages
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Authors
 
