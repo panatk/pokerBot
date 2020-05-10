@@ -1,3 +1,5 @@
+from treys import Card
+
 
 class Holding():
     """
@@ -5,11 +7,15 @@ class Holding():
 
     Args:
         - cards (list of treys ints)
+
     """
 
-    def __init__(self, cards):
-        self._cards = cards
-    
+    def __init__(self, *args):
+        self._cards = [Card.new(x) for x in args]
+
+    def get_card_str(self):
+        return [Card.int_to_str(x) for x in self.cards]
+
     @property
     def cards(self):
         return self._cards
