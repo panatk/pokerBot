@@ -2,6 +2,12 @@ from treys import Evaluator, Card
 
 
 class Street():
+    """
+    Class for rounds of community cards that are dealt (Flop, Turn or River).
+
+    Args:
+        - cards passed in string format (e.g. 'As')
+    """
     def __init__(self, cards):
         self.cards = [Card.new(x) for x in cards]
 
@@ -58,14 +64,22 @@ class Board():
 
     Args:
         - flop (Flop), turn (Turn), river (River)
-    """
 
-    def __init__(self, flop, turn=None, river=None):
-        self.flop = flop.flop
-        self.turn = turn.turn if turn is not None else []
-        self.river = river.river if river is not None else []
+    """
+    #TODO: add check of no river without a turn
+    #TODO: assert types???? maybe needed
+    def __init__(self, **kwargs):
+        assert kwargs['flop'] is not None, "Error: Board must have a flop"
+
+        self.flop = kwargs['flop'].flop
+        self.turn = kwargs['turn'].turn if 'turn' in kwargs else []
+        self.river = kwargs['river'].river if self._turn_exists_if_river_exists(kwargs) else []
+
         self._board = self._get_total_board()
         self.cards = [Card.new(x) for x in self._board]
+
+    def get_card_str(self):
+        return self._board
 
     def _get_total_board(self):
         total_board = self.flop + self.turn + self.river
@@ -73,5 +87,11 @@ class Board():
             total_board), "Error: Duplicates exist on the board"
         return total_board
 
-    def get_card_str(self):
-        return self._board
+    def _turn_exists_if_river_exists(self, kwargs):
+        if 'river' in kwargs:
+            if 'turn' not in kwargs:
+                raise AssertionError("Error: Cannot have a river without a turn")
+            else:
+                return True
+        else:
+            return False
