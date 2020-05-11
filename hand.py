@@ -16,15 +16,28 @@ class Hand():
     def __init__(self, holdings, board):
         self.holdings = holdings
         self.board = board
-        self.ranks = self._add_hand_ranks()
+        self._ranks_eval_done = False
         # TODO: check if board + holdings have duplicates
 
     def get_ranks(self):
+        self.ranks = self._add_hand_ranks()
+        self._ranks_eval_done = True
         return self.ranks
 
-    def who_won(self):
+    def get_winner(self):
         # TODO: handle ties
+        if self._ranks_eval_done is False:
+            self.get_ranks() 
         return min(self.ranks, key=lambda x: self.ranks[x])
+
+    def get_hand_classes(self):
+        if self._ranks_eval_done is False:
+            self.get_ranks()
+        hand_classes = {}
+        for player, rank in self.ranks.items():
+            hand_classes[player] = Evaluator().class_to_string(Evaluator().get_rank_class(rank))
+        return hand_classes
+        
 
     @property
     def holdings(self):
